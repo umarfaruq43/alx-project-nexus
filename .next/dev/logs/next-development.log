@@ -1,0 +1,16 @@
+[00:00:41.793] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
+[00:00:41.825] Server  ERROR    ⨯ "unhandledRejection:" Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
+[00:00:41.833] Server  ERROR    ⨯ "unhandledRejection: " Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
+[00:00:41.875] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
+[00:00:41.892] Server  ERROR    ⨯ "unhandledRejection:" Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
+[00:00:41.905] Server  ERROR    ⨯ "unhandledRejection: " Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
+[00:00:41.917] Browser ERROR   ./
+App Router and Pages Router both match path: /
+Next.js does not support having both App Router and Pages Router routes matching the same path. Please remove one of the conflicting routes.
+[00:00:41.917] Browser ERROR   ./
+App Router and Pages Router both match path: /
+Next.js does not support having both App Router and Pages Router routes matching the same path. Please remove one of the conflicting routes.
+[00:00:42.020] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
+[00:00:42.035] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
+[00:00:42.044] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
+[00:00:42.054] Server  ERROR   Error: ENOENT: no such file or directory, scandir '/home/cyberluck/Desktop/alx_pro_dev/week12/alx-project-nexus/app'
