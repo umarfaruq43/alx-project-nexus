@@ -1,232 +1,83 @@
-import React from 'react';
-import Button from '../common/Button';
-import Image from 'next/image';
+import { useState } from "react";
+import Link from "next/link";
+import { Add, Menu } from "iconsax-reactjs";
+import Image from "next/image";
+import Button from "../common/Button";
 
+export default function Header() {
+    const [open, setOpen] = useState(false);
 
-const Header: React.FC = () => {
-  return (
-    <header className='border-b border-[#E6E6E6]'>
-      <div className=' bg-[#34967c]'>
-        <div className=' flex items-center justify-between md:justify-center bg-[#34967c] w-[95%] md:w-full mx-auto gap-4 min-h-[27px]'>
-          <Image
-            src='/icons/Case Minimalistic.png'
-            alt='Case-image'
-            width={15}
-            height={15}
-          />
-          <p className='text-xs text-white'>
-            Overseas trip? Get the latest information{' '}
-            <br className='sm:hidden' /> on travel guides
-          </p>
-          <Button
-            className='bg-black px-2 py-0.5 rounded-full text-white text-xs'
-            label='More Info'
-            onClick={() => {
-              /* handle search click */
-            }}
-          />
-        </div>
-      </div>
+    const navItems = [
+        { title: "Home", href: "/" },
+        { title: "Discover", href: "/discover" },
+        { title: "Movie Release", href: "/release" },
+        { title: "Forum", href: "/forum" },
+        { title: "About", href: "/about" },
+    ];
 
-      <section className='bg-[#ffffff] '>
-        {/* Naviagtion & Search Bar */}
-        <div className='flex flex-row py-2 items-center justify-between w-[95%] mx-auto '>
-          {/* Logo */}
-          <div className='hidden md:flex flex-shrink-0'>
-            <Image
-              src='/icons/Vector.png'
-              alt='Alx-logo'
-              width={58.73}
-              height={30.6}
-            />
-          </div>
-
-          {/* Search Bar for Mobile screens */}
-          <div className='flex justify-between items-center md:hidden  w-full '>
-            <div className='flex items-center space-x-1 border border-[#E9E9E9] rounded-full w-auto'>
-              <div className='flex flex-col items-center '>
-                <label htmlFor='Location' className='text-xs'>
-                  Where to
-                </label>
-                <input
-                  id='Location'
-                  type='text'
-                  placeholder='Location'
-                  className=' w-[70px] text-xs ml-4 outline-none'
+    return (
+        <nav className="w-full  text-white inset-0 bg-linear-to-b from-black via-black/70 to-transparent  fixed top-0 left-0 z-50 border-b-red-400 border-b max-h-fit">
+            <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
+                <Image
+                    src={"/images/logo.png"}
+                    alt="logo"
+                    width={100}
+                    height={14}
                 />
-              </div>
+                <button className="lg:hidden" onClick={() => setOpen(!open)}>
+                    {open ? <Add size={28} /> : <Menu size={28} />}
+                </button>
 
-              <div>
-                <input
-                  id='Day'
-                  type='text'
-                  placeholder='Date'
-                  className='w-[70px] text-xs mt-4.5 outline-none'
-                />
-              </div>
-              <div className='flex '>
-                <input
-                  id='People'
-                  type='text'
-                  placeholder='Add guest'
-                  className='w-[70px] text-xs mt-4 outline-none'
-                />
-              </div>
-
-              <div className='flex items-center pr-1'>
-                <Button
-                  icon={
-                    <Image
-                      src='/icons/Frame 22.png'
-                      alt='Search-icon'
-                      width={34}
-                      height={34}
+                <div className="hidden text-sm lg:flex text-gray-100 gap-6 items-center">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.title}
+                            href={item.href}
+                            className="hover:text-blue-400 transition"
+                        >
+                            {item.title}
+                        </Link>
+                    ))}
+                </div>
+                <div className=" gap-3 ml-6  hidden text-sm lg:flex ">
+                    <Button
+                        label="Sign up"
+                        className="px-6 py-2 rounded-lg border border-gray-600 hover:bg-gray-800 transition"
                     />
-                  }
-                  className='w-[42px] h-[42px]'
-                  label='Search'
-                  onClick={() => {
-                    /* handle search click */
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Search Bar For Bigger screens */}
-          <div
-            className='hidden md:flex flex-row items-center justify-center
-                  border border-[#E9E9E9] rounded-full bg-white
-                   sm:w-auto px-4 py-3 sm:py-2 gap-3 sm:gap-5'
-          >
-            {/* Location */}
-            <div className='flex flex-col gap-1 w-full sm:w-auto'>
-              <label
-                htmlFor='Location'
-                className='text-black text-sm hidden sm:block'
-              >
-                Location
-              </label>
-              <input
-                id='Location'
-                type='text'
-                placeholder='Search for destination'
-                className='
-                    text-black w-full sm:w-[170px] text-sm sm:text-xs outline-none 
-                     border border-gray-200 sm:border-0 rounded-lg sm:rounded-none px-2 py-2 sm:px-0 sm:py-0
-                             '
-              />
+                    <Button className=" py-2 rounded-lg bg-green-500  hover:bg-green-500/80 transition px-6">
+                        Login
+                    </Button>
+                </div>
             </div>
 
-            {/* Check in */}
-            <div className='flex flex-col gap-1 w-full sm:w-auto'>
-              <label
-                htmlFor='Checkin'
-                className='text-black text-sm hidden sm:block'
-              >
-                Check in
-              </label>
-              <input
-                id='Checkin'
-                type='text'
-                placeholder='Add date'
-                className='
-            text-black w-full sm:w-[100px] text-sm sm:text-xs outline-none 
-            border border-gray-200 sm:border-0 rounded-lg sm:rounded-none px-2 py-2 sm:px-0 sm:py-0
-              '
-              />
+            {/* Mobile Sidebar */}
+            <div
+                className={`lg:hidden fixed top-0 left-0 h-full w-64 bg-black p-6 z-40 transform transition-transform duration-300 ${
+                    open ? "translate-x-0" : "-translate-x-full"
+                }`}
+            >
+                <div className="flex flex-col gap-6 mt-10 text-lg">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.title}
+                            href={item.href}
+                            className="hover:text-blue-400 transition"
+                            onClick={() => setOpen(false)}
+                        >
+                            {item.title}
+                        </Link>
+                    ))}
+                </div>
+
+                <div className="flex flex-col gap-4 mt-10">
+                    <button className="px-4 py-2 rounded-lg border border-gray-600 hover:bg-gray-800 transition">
+                        Sign up
+                    </button>
+                    <button className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition">
+                        Login
+                    </button>
+                </div>
             </div>
-
-            {/* Check out */}
-            <div className='flex flex-col gap-1 w-full sm:w-auto'>
-              <label
-                htmlFor='Checkout'
-                className='text-black text-sm hidden sm:block'
-              >
-                Check out
-              </label>
-              <input
-                id='Checkout'
-                type='text'
-                placeholder='Add date'
-                className='
-            text-black w-full sm:w-[100px] text-sm sm:text-xs outline-none 
-            border border-gray-200 sm:border-0 rounded-lg sm:rounded-none px-2 py-2 sm:px-0 sm:py-0
-            '
-              />
-            </div>
-
-            {/* People */}
-            <div className='flex flex-col gap-1 w-full sm:w-auto'>
-              <label
-                htmlFor='People'
-                className='text-black text-sm hidden sm:block'
-              >
-                People
-              </label>
-              <input
-                id='People'
-                type='text'
-                placeholder='Add guest'
-                className='
-            text-black w-full sm:w-[100px] text-sm sm:text-xs outline-none 
-            border border-gray-200 sm:border-0 rounded-lg sm:rounded-none px-2 py-2 sm:px-0 sm:py-0
-              '
-              />
-            </div>
-
-            {/* Search Button */}
-            <div>
-              {' '}
-              <Button
-                icon={
-                  <Image
-                    src='/icons/Frame 22.png'
-                    alt='Search-icon'
-                    width={42}
-                    height={42}
-                  />
-                }
-                className='w-[42px] h-[42px]'
-                label='Search'
-                onClick={() => {
-                  /* handle search click */
-                }}
-              />{' '}
-            </div>
-          </div>
-
-          {/* Sign in/up Buttons */}
-          <div className='hidden lg:flex gap-2 text-xs mt-4 md:mt-0'>
-            <Button
-              label='Sign in'
-              className='border border-[#E9E9E9] bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-[#34967C] hover:text-white transition-colors duration-300'
-              onClick={() => {
-                /* handle sign in click */
-              }}
-            />
-
-            <Button
-              label='Sign up'
-              className='border border-[#E9E9E9] bg-white text-black px-6 py-3 rounded-full font-medium hover:bg-[#34967C] hover:text-white transition-colors duration-300'
-              onClick={() => {
-                /* handle sign up click */
-              }}
-            />
-          </div>
-
-          <div className='flex lg:hidden '>
-            <Image
-              src='/icons/Frame 8.png'
-              alt='Profile'
-              width={38}
-              height={38}
-            />
-          </div>
-        </div>
-      </section>
-    </header>
-  );
-};
-
-export default Header;
+        </nav>
+    );
+}

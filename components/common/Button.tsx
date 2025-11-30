@@ -1,6 +1,7 @@
 import React from "react";
 // Update the path below to the actual location of your interfaces file
 import { ButtonProps } from "../../interfaces";
+import { cn } from "@/lib/utilities";
 
 const Button: React.FC<ButtonProps> = ({
     className,
@@ -8,10 +9,15 @@ const Button: React.FC<ButtonProps> = ({
     onClick,
     type = "button",
     icon,
+    children,
 }) => {
     return (
-        <button className={className} type={type} onClick={onClick}>
-            {icon ? icon : label}
+        <button
+            className={cn("cursor-pointer", className)}
+            type={type}
+            onClick={onClick}
+        >
+            {icon || label} {children}
         </button>
     );
 };
