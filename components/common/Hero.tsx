@@ -8,7 +8,11 @@ import Autoplay from "embla-carousel-autoplay";
 
 import { InfoCircle, Play } from "iconsax-reactjs";
 
-const HeroSection = ({ slides }) => {
+const HeroSection = ({
+    slides,
+}: {
+    slides: Array<{ image: string; title: string; desc: string }>;
+}) => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
         Autoplay({ delay: 4000, stopOnInteraction: false }),
     ]);
