@@ -1,64 +1,50 @@
-# alx-project-nexus
+# Movie Recommendation App – ALX ProDev Frontend Project
 
-A comprehensive ProDev frontend engineering program focused on modern web and mobile development practices using Next.js and TypeScript.
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat&logo=vercel)](https://your-deployed-link.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-15.x-000000?style=flat&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat&logo=typescript)](https://www.typescriptlang.org)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-## Key Technologies
+## Live Demo
 
--   Next.js
--   TypeScript
--   GraphQL
--   TailwindCSS
--   Progressive Web Apps (PWA)
+[Click here to view the live app](https://your-deployed-link.vercel.app)  
+_(Replace with your actual Vercel/Netlify URL after deployment)_
 
-## Getting Started
+## Overview
 
-First, run the development server:
+A modern, responsive movie recommendation web application built with **Next.js 15 (App Router)** and **TypeScript**. The app integrates with **The Movie Database (TMDB) API** to display trending and recommended movies, features dynamic routing for individual movie pages, and allows users to save their favorite movies using `localStorage`.
+
+This project showcases real-world frontend engineering skills including API integration, dynamic routing, state management, reusable components, performance optimization, and pixel-perfect responsive design.
+
+## Key Features
+
+-   Trending & personalized movie recommendations dashboard
+-   Dynamic movie detail pages using Next.js dynamic routes (`/movies/[id]`)
+-   Save/remove favorite movies with persistence via `localStorage`
+-   Fully responsive layout (mobile, tablet, desktop)
+-   Loading skeletons and proper error handling for API requests
+-   Smooth hover effects and subtle animations on movie cards
+-   Optimized images using Next.js `<Image>` component
+-   Clean, conventional git commit history
+
+## Tech Stack
+
+| Technology                       | Purpose                                |
+| -------------------------------- | -------------------------------------- |
+| Next.js 15 (App Router)          | File-based routing & server components |
+| TypeScript                       | Type safety and scalable development   |
+| TMDB API                         | Source of movie data and images        |
+| Styled Components / Tailwind CSS | Component styling & responsive design  |
+| localStorage                     | Client-side persistence of favorites   |
+| Zod (optional)                   | Schema validation for API responses    |
+
+## Setup & Installation
 
 ```bash
+git clone https://github.com/your-username/alx-movie-recommendation.git
+cd alx-movie-recommendation
+
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-## Development Concepts
-
--   System Design and Analysis
--   Component Architecture
--   State Management (Context API and custom hooks)
--   API Integration and Data Fetching
--   Performance Optimization (code splitting, lazy loading)
--   Responsive Design and Accessibility
-
-## Project Features
-
--   **Type Safety**: Implemented TypeScript throughout
--   **Optimized Performance**: Code splitting and lazy loading
--   **Scalable Architecture**: Component-driven development patterns
--   **Auto-updating Fonts**: Uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) for [Geist](https://vercel.com/font)
-
-## Best Practices
-
--   Clean, maintainable code with comprehensive documentation
--   Meaningful git commits and effective version control
--   Comprehensive testing strategies
--   Accessibility and performance optimization
-
-## Learn More
-
--   [Next.js Documentation](https://nextjs.org/docs)
--   [Learn Next.js](https://nextjs.org/learn-pages-router)
--   [Next.js GitHub Repository](https://github.com/vercel/next.js)
-
-## Deploy on Vercel
-
-The easiest way to deploy is using the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
-
-Check out [deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
