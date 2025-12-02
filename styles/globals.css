@@ -13,3 +13,7 @@
 .isCentered {
   @apply flex items-center justify-center
 }
+
+button {
+  cursor: pointer;
+}
