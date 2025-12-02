@@ -1,83 +1,71 @@
-import { useState } from "react";
-import Link from "next/link";
-import { Add, Menu } from "iconsax-reactjs";
 import Image from "next/image";
-import Button from "../common/Button";
+import { Menu, SearchNormal1 } from "iconsax-reactjs";
+import { useRouter } from "next/router";
 
-export default function Header() {
-    const [open, setOpen] = useState(false);
+interface HeaderProps {
+    toggleSidebar: () => void;
+}
 
-    const navItems = [
-        { title: "Home", href: "/" },
-        { title: "Discover", href: "/discover" },
-        { title: "Movie Release", href: "/release" },
-        { title: "Forum", href: "/forum" },
-        { title: "About", href: "/about" },
-    ];
-
+export default function Header({ toggleSidebar }: HeaderProps) {
+    const router = useRouter();
     return (
-        <nav className="w-full  text-white inset-0 bg-linear-to-b from-black via-black/70 to-transparent  fixed top-0 left-0 z-50 border-b-red-400 border-b max-h-fit">
-            <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
-                <Image
-                    src={"/images/logo.png"}
-                    alt="logo"
-                    width={100}
-                    height={14}
-                />
-                <button className="lg:hidden" onClick={() => setOpen(!open)}>
-                    {open ? <Add size={28} /> : <Menu size={28} />}
+        <header className="bg-gray-950 border-b border-purple-900 px-6 py-4 flex items-center justify-between">
+            {/* Mobile Menu Button */}
+            <button onClick={toggleSidebar} className="lg:hidden">
+                <Menu size={28} className="text-purple-300" />
+            </button>
+
+            {/* Tabs */}
+            <div className="hidden md:flex items-center gap-10">
+                {/* {["Movies", "Series", "Documentaries"].map((tab) => (
+                    <button
+                        key={tab}
+                        className={`font-medium transition-colors ${
+                            tab === "Movies"
+                                ? "text-white"
+                                : "text-purple-400 hover:text-white"
+                        }`}
+                    >
+                        {tab}
+                    </button>
+                ))} */}
+            </div>
+
+            {/* Right Icons */}
+            <div className="flex items-center gap-6">
+                <button
+                    onClick={() => router.push("/search")}
+                    className="relative text-purple-300 hover:text-white transition"
+                >
+                    <SearchNormal1 size={24} />
                 </button>
 
-                <div className="hidden text-sm lg:flex text-gray-100 gap-6 items-center">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.title}
-                            href={item.href}
-                            className="hover:text-blue-400 transition"
-                        >
-                            {item.title}
-                        </Link>
-                    ))}
-                </div>
-                <div className=" gap-3 ml-6  hidden text-sm lg:flex ">
-                    <Button
-                        label="Sign up"
-                        className="px-6 py-2 rounded-lg border border-gray-600 hover:bg-gray-800 transition"
+                {!true && (
+                    <Image
+                        src="/avatar.jpg"
+                        alt="User"
+                        width={40}
+                        height={40}
+                        className="rounded-full"
                     />
-                    <Button className=" py-2 rounded-lg bg-green-500  hover:bg-green-500/80 transition px-6">
-                        Login
-                    </Button>
-                </div>
-            </div>
-
-            {/* Mobile Sidebar */}
-            <div
-                className={`lg:hidden fixed top-0 left-0 h-full w-64 bg-black p-6 z-40 transform transition-transform duration-300 ${
-                    open ? "translate-x-0" : "-translate-x-full"
-                }`}
-            >
-                <div className="flex flex-col gap-6 mt-10 text-lg">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.title}
-                            href={item.href}
-                            className="hover:text-blue-400 transition"
-                            onClick={() => setOpen(false)}
+                )}
+                {true && (
+                    <div className="hidden md:flex items-center gap-6">
+                        <button
+                            onClick={() => router.push("/login")}
+                            className="text-purple-300 hover:text-white"
                         >
-                            {item.title}
-                        </Link>
-                    ))}
-                </div>
-
-                <div className="flex flex-col gap-4 mt-10">
-                    <button className="px-4 py-2 rounded-lg border border-gray-600 hover:bg-gray-800 transition">
-                        Sign up
-                    </button>
-                    <button className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition">
-                        Login
-                    </button>
-                </div>
+                            Sign In
+                        </button>
+                        <button
+                            onClick={() => router.push("/signup")}
+                            className="px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-full font-bold"
+                        >
+                            Sign Up
+                        </button>
+                    </div>
+                )}
             </div>
-        </nav>
+        </header>
     );
 }
