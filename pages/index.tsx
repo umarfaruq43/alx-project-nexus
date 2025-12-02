@@ -1,45 +1,57 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
 import Hero from "@/components/common/Hero";
-import Autoplay from "@/node_modules/embla-carousel-autoplay/esm/components/Autoplay";
-import useEmblaCarousel from "@/node_modules/embla-carousel-react/esm/components/useEmblaCarousel";
-import React, { useCallback } from "react";
-import CustomSlider from "@/components/common/CustomSlider";
-import MovieCompany from "@/components/MovieCategories/MovieCompany";
-
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-});
+import MovieCarousel from "@/components/MovieCategories/MovieCarousel";
 
 export default function Home() {
-    const slides = [
+    const trendingMovies = [
         {
-            title: "Star Wars: The Force Awakens",
-            desc: "As a new threat to the galaxy rises, Rey, Finn, Han Solo and Chewbacca search for the one hope of restoring peace.",
-            image: "/images/star_war.webp",
+            id: 1,
+            title: "Tokyo Train",
+            year: "2022",
+            genre: "Action comedy",
+            posterUrl:
+                "https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMUBj5.jpg",
         },
         {
-            title: "The Manipulated",
-            desc: "Mild-mannered Tae Jung is wrongfully imprisoned for a heinous crime. He soon discovers that a mysterious figure named Yo Han orchestrated his downfall. Fueled by vengeance, Tae Jung sets out to make Yo Han pay.",
-            image: "/images/manipulated.jpg",
+            id: 2,
+            title: "Moonfall",
+            year: "2022",
+            genre: "Sci-fi",
+            posterUrl:
+                "https://image.tmdb.org/t/p/w500/odVv1sqVs0KxBXiA8bhIBlPgalx.jpg",
         },
+        // Add more...
+    ];
+
+    const continueWatching = [
         {
-            title: "Third Slide Demo",
-            desc: "Easily add more slides to this hero carousel.",
-            image: "/images/soul.webp",
+            id: 3,
+            title: "Stranger Things",
+            year: "2024",
+            genre: "Horror",
+            posterUrl:
+                "https://image.tmdb.org/t/p/w500/x2LSR9Fylg5q2ogxIU0z3gBd2fC.jpg",
         },
+        // Add more...
     ];
     return (
         <div>
-            <Hero slides={slides} />
+            <Hero />
 
-            <MovieCompany />
+            <div className="mt-10 relative z-10">
+                <MovieCarousel
+                    title="Trending"
+                    movies={trendingMovies}
+                    size="large"
+                    autoScroll={true}
+                />
+
+                <MovieCarousel
+                    title="Continue watching"
+                    movies={continueWatching}
+                    size="small"
+                    autoScroll={false}
+                />
+            </div>
         </div>
     );
 }
