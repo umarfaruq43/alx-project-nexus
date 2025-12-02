@@ -20,24 +20,6 @@ export interface InputProps {
     placeholder: string;
 }
 
-export interface PropertyProps {
-    id: string;
-    name: string;
-    address: {
-        state: string;
-        city: string;
-        country: string;
-    };
-    rating: number;
-    category: string[];
-    price: number;
-    offers: {
-        bed: string;
-        shower: string;
-        occupants: string;
-    };
-    image: string;
-    discount: string;
-    description: string;
-    amenities: string[];
+export interface SidebarProps {
+    closeMobileMenu: () => void;
 }
