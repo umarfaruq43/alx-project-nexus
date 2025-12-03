@@ -4,24 +4,26 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import MovieCarousel from "@/components/MovieCategories/MovieCarousel";
 import MovieDetailSkeleton from "@/components/MovieCategories/MovieDetailSkeleton";
+import { tmdbAPI } from "@/lib/tmdb";
+import { Movie } from "@/interfaces";
 
 // Mock data (to be replace with real API later)
-const mockMovie = {
-    id: 1,
-    title: "Insider",
-    year: "2022",
-    genre: "Comedy horror",
-    duration: "2h 15min",
-    rating: 8.7,
-    overview:
-        "A group of friends discover a mysterious tunnel that leads to another dimension filled with terrifying creatures and mind-bending horrors. What starts as curiosity quickly turns into a fight for survival in this thrilling comedy-horror series.",
-    posterUrl:
-        "https://images.unsplash.com/photo-1622396636133-ba43f812bc35?w=800&h=1200&fit=crop",
-    backdropUrl:
-        "https://images.unsplash.com/photo-1622396636133-ba43f812bc35?w=1920&h=1080&fit=crop",
-    cast: ["Tetiana Smith", "John Doe", "Sarah Connor", "Mike Tyson"],
-    director: "Christopher Nolan",
-};
+// const mockMovie = {
+//     id: 1,
+//     title: "Insider",
+//     year: "2022",
+//     genre: "Comedy horror",
+//     duration: "2h 15min",
+//     rating: 8.7,
+//     overview:
+//         "A group of friends discover a mysterious tunnel that leads to another dimension filled with terrifying creatures and mind-bending horrors. What starts as curiosity quickly turns into a fight for survival in this thrilling comedy-horror series.",
+//     posterUrl:
+//         "https://images.unsplash.com/photo-1622396636133-ba43f812bc35?w=800&h=1200&fit=crop",
+//     backdropUrl:
+//         "https://images.unsplash.com/photo-1622396636133-ba43f812bc35?w=1920&h=1080&fit=crop",
+//     cast: ["Tetiana Smith", "John Doe", "Sarah Connor", "Mike Tyson"],
+//     director: "Christopher Nolan",
+// };
 
 const relatedMovies = [
     {
@@ -70,17 +72,43 @@ export default function MovieDetail() {
     const router = useRouter();
     const { id } = router.query;
 
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [movie, setMovie] = useState<Movie | null>(null);
+    const [related, setRelated] = useState<Movie[]>([]);
+    const [loading, setLoading] = useState(true);
     const [isFavorite, setIsFavorite] = useState(false);
 
-    // Simulate API delay
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 100);
-        return () => clearTimeout(timer);
-    }, []);
+        if (!id) return;
+
+        const fetchMovie = async () => {
+            try {
+                const [movieRes, relatedRes] = await Promise.all([
+                    tmdbAPI.getById(id as string),
+                    fetch(
+                        `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+                    ).then((r) => r.json()),
+                ]);
+
+                setMovie(movieRes);
+                setRelated(
+                    relatedRes.results.slice(0, 10).map((m: any) => ({
+                        id: m.id,
+                        title: m.title,
+                        year: m.release_date?.split("-")[0] || "N/A",
+                        genre: "Movie",
+                        poster_path: m.poster_path,
+                    }))
+                );
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMovie();
+    }, [id]);
 
     if (loading) {
         return <MovieDetailSkeleton />;
@@ -105,8 +133,6 @@ export default function MovieDetail() {
         );
     }
 
-    const movie = mockMovie;
-
     return (
         <>
             {/* Hero Backdrop */}
@@ -122,8 +148,8 @@ export default function MovieDetail() {
                 <div className="relative z-10   px-6 lg:px-10 flex flex-col lg:flex-row gap-12">
                     <div className="flex-  shadow-2xl rounded-2xl overflow-hidden border-4 border-purple-600/30">
                         <Image
-                            src={movie.posterUrl}
-                            alt={movie.title}
+                            src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
+                            alt={movie?.title || ""}
                             width={500}
                             height={750}
                             className="object-cover"
@@ -131,21 +157,18 @@ export default function MovieDetail() {
                     </div>
 
                     <div className="text-white max-w-3xl">
-                        <h1 className="text-6xl md:text-8xl font-bold mb-6">
-                            {movie.title}
+                        <h1 className="text-3xl md:text-5xl font-bold mb-6">
+                            {movie?.title}
                         </h1>
 
                         <div className="flex flex-wrap items-center gap-6 text-purple-300 mb-8 text-lg">
                             <span className="flex items-center gap-2">
-                                <Calendar size={22} /> {movie.year}
+                                <Calendar size={22} /> {movie?.year}
                             </span>
                             <span className="mx-4">•</span>
-                            <span className="flex items-center gap-2">
-                                <Clock size={22} /> {movie.duration}
-                            </span>
-                            <span className="mx-4">•</span>
+
                             <span className="px-4 py-2 bg-purple-600/30 rounded-full">
-                                {movie.genre}
+                                {movie?.genre}
                             </span>
                             <span className="mx-4">•</span>
                             <span className="flex items-center gap-2 bg-yellow-500/20 px-4 py-2 rounded-full">
@@ -154,21 +177,16 @@ export default function MovieDetail() {
                                     className="text-yellow-400 fill-yellow-400"
                                 />
                                 <span className="font-bold">
-                                    {movie.rating}
+                                    {movie?.vote_average}
                                 </span>
                             </span>
                         </div>
 
                         <p className="text-lg leading-relaxed mb-10 text-gray-200 max-w-2xl">
-                            {movie.overview}
+                            {movie?.overview}
                         </p>
 
-                        <div className="flex items-center gap-8 mb-12">
-                            <button className="flex items-center gap-4 bg-purple-600 hover:bg-purple-500 px-12 py-6 rounded-full text-xl font-bold shadow-2xl hover:scale-105 transition">
-                                <Play size={36} variant="Bold" />
-                                Watch Now
-                            </button>
-
+                        {/* <div className="flex items-center gap-8 mb-12">
                             <button
                                 onClick={() => setIsFavorite(!isFavorite)}
                                 className={`p-5 rounded-full border-4 transition-all hover:scale-110 ${
@@ -183,26 +201,7 @@ export default function MovieDetail() {
                                     className={isFavorite ? "fill-white" : ""}
                                 />
                             </button>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                            <div>
-                                <h3 className="text-xl font-semibold mb-3">
-                                    Cast
-                                </h3>
-                                <p className="text-gray-300">
-                                    {movie.cast.join(", ")}
-                                </p>
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-semibold mb-3">
-                                    Director
-                                </h3>
-                                <p className="text-gray-300">
-                                    {movie.director}
-                                </p>
-                            </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>
@@ -213,12 +212,7 @@ export default function MovieDetail() {
                 <h2 className="text-4xl font-bold mb-10 text-white">
                     Related Movies
                 </h2>
-                <MovieCarousel
-                    title=""
-                    movies={relatedMovies}
-                    size="large"
-                    autoScroll={true}
-                />
+                <MovieCarousel title="" movies={related} autoScroll={true} />
             </section>
         </>
     );

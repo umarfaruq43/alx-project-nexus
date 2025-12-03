@@ -23,3 +23,15 @@ export interface InputProps {
 export interface SidebarProps {
     closeMobileMenu: () => void;
 }
+
+export interface Movie {
+    id: number;
+    title: string;
+    year: string;
+    genre: string;
+    poster_path: string | null;
+    backdrop_path?: string | null;
+    overview?: string;
+    vote_average?: number;
+    runtime?: number;
+}
