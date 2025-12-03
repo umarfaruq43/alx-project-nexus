@@ -5,48 +5,28 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utilities";
 
 import { useRouter } from "next/router";
-
-interface MovieCardProps {
-    id: number;
-    title: string;
-    year: string;
-    genre: string;
-    posterUrl: string;
-    size?: "small" | "large";
-}
+import { Movie } from "@/interfaces";
+import { isFavorite, toggleFavorite } from "@/lib/favorites";
 
 export default function MovieCard({
     id,
     title,
     year,
     genre,
-    posterUrl,
-    size = "large",
-}: MovieCardProps) {
-    const [isFavorite, setIsFavorite] = useState(false);
+    poster_path,
+}: Movie) {
     const router = useRouter();
-    // Check localStorage on mount
+
+    const [liked, setLiked] = useState(false);
+
     useEffect(() => {
-        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-        setIsFavorite(favorites.includes(id));
+        setLiked(isFavorite(id));
     }, [id]);
-
-    const toggleFavorite = () => {
-        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-        if (isFavorite) {
-            const newFavorites = favorites.filter(
-                (favId: number) => favId !== id
-            );
-            localStorage.setItem("favorites", JSON.stringify(newFavorites));
-        } else {
-            localStorage.setItem(
-                "favorites",
-                JSON.stringify([...favorites, id])
-            );
-        }
-        setIsFavorite(!isFavorite);
+    const handleHeartClick = (e: React.MouseEvent) => {
+        e.stopPropagation(); // Prevent going to detail page
+        toggleFavorite(id);
+        setLiked(!liked);
     };
-
     return (
         <div
             onClick={() => router.push(`/movies/${id}`)}
@@ -56,10 +36,14 @@ export default function MovieCard({
             )}
         >
             <Image
-                src={posterUrl || "/placeholder.jpg"}
+                src={
+                    poster_path
+                        ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                        : "/placeholder.jpg"
+                }
                 alt={title}
-                width={size === "small" ? 192 : 256}
-                height={size === "small" ? 288 : 384}
+                width={256}
+                height={384}
                 className="object-cover w-full h-full"
             />
 
@@ -76,21 +60,15 @@ export default function MovieCard({
 
             {/* Heart Button */}
             <button
-                onClick={(e) => {
-                    e.stopPropagation();
-                    toggleFavorite();
-                }}
-                className={cn(
-                    "absolute top-4 right-4 p-3 rounded-full backdrop-blur-md transition-all",
-                    isFavorite
-                        ? "bg-purple-600 text-white"
-                        : "bg-black/50 text-white hover:bg-white/20"
-                )}
+                onClick={handleHeartClick}
+                className="absolute top-3 right-3 p-3 bg-black/70 backdrop-blur rounded-full opacity-100 group-hover:opacity-100 transition-opacity"
             >
                 <Heart
-                    size={20}
-                    variant={isFavorite ? "Bold" : "Outline"}
-                    className={isFavorite ? "fill-white" : ""}
+                    size={24}
+                    variant={liked ? "Bold" : "Outline"}
+                    className={
+                        liked ? "text-red-500 fill-red-500" : "text-white"
+                    }
                 />
             </button>
         </div>
