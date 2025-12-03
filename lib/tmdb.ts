@@ -2,9 +2,16 @@ import { Movie } from "@/interfaces";
 import axios from "axios";
 import { removeFavorite } from "./favorites";
 
+// const tmdb = axios.create({
+//     baseURL: "https://api.themoviedb.org/3",
+//     params: { api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY },
+// });
+
 const tmdb = axios.create({
     baseURL: "https://api.themoviedb.org/3",
-    params: { api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY },
+    headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+    },
 });
 
 export const tmdbAPI = {
