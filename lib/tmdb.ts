@@ -10,7 +10,7 @@ import { removeFavorite } from "./favorites";
 const tmdb = axios.create({
     baseURL: "https://api.themoviedb.org/3",
     headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_TOKEN}`,
+        Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNDk1ODIxZmM1NGE0YmE0NzlkMTg0Y2ZhMTc1ZmJkYiIsIm5iZiI6MTYxNzYzMDkyNi42MDksInN1YiI6IjYwNmIxNmNlMDljMjRjMDA0MGM5NmE4NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7dQyL5sSpOfJc_7pJp8_yW3vJpj3i2bnsKeeCh3y2Rs"}`,
     },
 });
 
