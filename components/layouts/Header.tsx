@@ -39,32 +39,6 @@ export default function Header({ toggleSidebar }: HeaderProps) {
                 >
                     <SearchNormal1 size={24} />
                 </button>
-
-                {!true && (
-                    <Image
-                        src="/avatar.jpg"
-                        alt="User"
-                        width={40}
-                        height={40}
-                        className="rounded-full"
-                    />
-                )}
-                {true && (
-                    <div className="hidden md:flex items-center gap-6">
-                        <button
-                            onClick={() => router.push("/login")}
-                            className="text-purple-300 hover:text-white"
-                        >
-                            Sign In
-                        </button>
-                        <button
-                            onClick={() => router.push("/signup")}
-                            className="px-6 py-3 bg-purple-600 hover:bg-purple-500 rounded-full font-bold"
-                        >
-                            Sign Up
-                        </button>
-                    </div>
-                )}
             </div>
         </header>
     );

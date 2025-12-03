@@ -18,7 +18,7 @@ import { SidebarProps } from "@/interfaces";
 
 const navItems = [
     { icon: Home, label: "Home", href: "/" },
-    { icon: Heart, label: "Trending", href: "/trending" },
+    { icon: Heart, label: "Recommended", href: "/recommended" },
     { icon: Heart, label: "Favourites", href: "/favorites" },
 ];
 
@@ -61,27 +61,6 @@ export default function Sidebar({ closeMobileMenu }: SidebarProps) {
                 })}
             </nav>
 
-            {/* Bottom Links */}
-            {!true && (
-                <div className="px-6 pb-6 space-y-3 border-t border-purple-800 pt-6">
-                    <button className="flex items-center gap-4 px-5 py-4 text-purple-300 hover:bg-purple-900/50 rounded-xl w-full text-left">
-                        <Logout size={26} />
-                        <span className="font-medium">Logout</span>
-                    </button>
-                </div>
-            )}
-
-            {true && (
-                <Link
-                    href={"/login"}
-                    className="px-6 pb-6 space-y-3 border-t border-purple-800 pt-6"
-                >
-                    <button className="flex items-center gap-4 px-5 py-4 text-purple-300 hover:bg-purple-900/50 rounded-xl w-full text-left cursor-pointer">
-                        <Login size={26} />
-                        <span className="font-medium">Sign In</span>
-                    </button>
-                </Link>
-            )}
             {/* Mobile Close */}
             <button
                 onClick={closeMobileMenu}

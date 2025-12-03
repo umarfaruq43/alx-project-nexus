@@ -1,104 +1,64 @@
-// import Image from "next/image";
-// import { Play, Heart } from "iconsax-reactjs";
-// import { useState } from "react";
-
-// export default function HeroSection() {
-//     const [isFavorite, setIsFavorite] = useState(false);
-
-//     return (
-//         <section className="relative  h-[60vh] flex items-end pb-20 overflow-hidden">
-//             {/* Background Image with dark overlay */}
-//             <Image
-//                 src="https://images.unsplash.com/photo-1622396636133-ba43f812bc35?w=1920&h=1080&fit=crop"
-//                 alt="Insider hero background"
-//                 fill
-//                 className="object-cover"
-//                 priority
-//             />
-
-//             {/* Content */}
-//             <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
-//                 <div className="max-w-3xl">
-//                     {/* Title */}
-//                     <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight">
-//                         Insider
-//                     </h1>
-
-//                     {/* Meta info */}
-//                     <div className="flex items-center gap-4 text-purple-300 mb-8 text-lg">
-//                         <span>2022</span>
-//                         <span className="px-3 py-1 bg-purple-600/30 rounded-full text-sm">
-//                             Comedy horror
-//                         </span>
-//                         <span>1 Season</span>
-//                     </div>
-
-//                     {/* Buttons */}
-//                     <div className="flex items-center gap-6">
-//                         <button className="flex items-center gap-3 bg-purple-600 hover:bg-purple-500 transition-all px-10 py-5 rounded-full text-lg font-semibold shadow-2xl transform hover:scale-105">
-//                             <Play size={28} variant="Bold" />
-//                             Watch now
-//                         </button>
-
-//                         <button
-//                             onClick={() => setIsFavorite(!isFavorite)}
-//                             className={`p-4 rounded-full border-2 transition-all transform hover:scale-110 ${
-//                                 isFavorite
-//                                     ? "bg-purple-600 border-purple-600"
-//                                     : "border-white/50 hover:border-white"
-//                             }`}
-//                         >
-//                             <Heart
-//                                 size={32}
-//                                 variant={isFavorite ? "Bold" : "Outline"}
-//                                 className={
-//                                     isFavorite
-//                                         ? "text-white fill-white"
-//                                         : "text-white"
-//                                 }
-//                             />
-//                         </button>
-//                     </div>
-//                 </div>
-//             </div>
-
-//             {/* Bottom fade */}
-//             <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-gray-950 to-transparent" />
-//         </section>
-//     );
-// }
-
-// components/HeroSection.tsx   ← Keep the same file
 "use client";
 
 import Image from "next/image";
 import { Play, Heart } from "iconsax-reactjs";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const featuredMovies = [
     {
-        id: 1,
-        title: "Insider",
-        year: "2022",
-        genre: "Comedy horror",
-        seasons: "1 Season",
-        image: "https://images.unsplash.com/photo-1622396636133-ba43f812bc35?w=1920&h=1080&fit=crop",
+        adult: false,
+        backdrop_path: "/hpXBJxLD2SEf8l2CspmSeiHrBKX.jpg",
+        id: 1062722,
+        title: "Frankenstein",
+        original_title: "Frankenstein",
+        overview:
+            "Dr. Victor Frankenstein, a brilliant but egotistical scientist, brings a creature to life in a monstrous experiment that ultimately leads to the undoing of both the creator and his tragic creation.",
+        poster_path: "/g4JtvGlQO7DByTI6frUobqvSL3R.jpg",
+        media_type: "movie",
+        original_language: "en",
+        genre_ids: [18, 14, 27],
+        popularity: 149.7549,
+        release_date: "2025-10-17",
+        video: false,
+        vote_average: 7.771,
+        vote_count: 2034,
     },
     {
-        id: 2,
-        title: "Moonfall",
-        year: "2022",
-        genre: "Sci-fi Action",
-        seasons: "Movie",
-        image: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?w=1920&h=1080&fit=crop",
+        adult: false,
+        backdrop_path: "/oIJjO1CvEdTMFNkWfHaV0RB584G.jpg",
+        id: 628847,
+        title: "Trap House",
+        original_title: "Trap House",
+        overview:
+            "An undercover DEA agent and his partner embark on a game of cat and mouse with an audacious, and surprising group of thieves - their own rebellious teenagers, who have begun robbing from a dangerous cartel, using their parents' tactics and top-secret intel to do it.",
+        poster_path: "/ctU9S47MoJDN9CB7SCaitcfyyIu.jpg",
+        media_type: "movie",
+        original_language: "en",
+        genre_ids: [28, 80, 53],
+        popularity: 18.2455,
+        release_date: "2025-11-14",
+        video: false,
+        vote_average: 5.5,
+        vote_count: 4,
     },
     {
-        id: 3,
-        title: "The Void",
-        year: "2024",
-        genre: "Horror Thriller",
-        seasons: "1 Season",
-        image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1920&h=1080&fit=crop",
+        adult: false,
+        backdrop_path: "/m3WlBJJRbFPaut1QS0PbOG8Wezy.jpg",
+        id: 1327862,
+        title: "Regretting You",
+        original_title: "Regretting You",
+        overview:
+            "Morgan Grant and her daughter Clara explore what's left behind after a devastating accident reveals a shocking betrayal and forces them to confront family secrets, redefine love, and rediscover each other.",
+        poster_path: "/z4gVnxTaks3anTycwKjDmvQSuWt.jpg",
+        media_type: "movie",
+        original_language: "en",
+        genre_ids: [10749, 18],
+        popularity: 88.774,
+        release_date: "2025-10-22",
+        video: false,
+        vote_average: 7.1,
+        vote_count: 121,
     },
 ];
 
@@ -111,10 +71,12 @@ export default function HeroSection() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % featuredMovies.length);
-        }, 7000);
+        }, 5000);
 
         return () => clearInterval(interval);
     }, []);
+
+    const router = useRouter();
 
     return (
         <section className="relative h-[600px] flex items-end pb-20 overflow-hidden">
@@ -123,7 +85,7 @@ export default function HeroSection() {
                 {featuredMovies.map((movie, index) => (
                     <Image
                         key={movie.id}
-                        src={movie.image}
+                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                         alt={movie.title}
                         fill
                         className={`object-cover transition-opacity duration-1000 ${
@@ -135,33 +97,42 @@ export default function HeroSection() {
             </div>
 
             {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-black/60" />
 
             {/* Content  */}
-            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="relative z-10 max-w-7xl  px-6 lg:px-10">
                 <div className="max-w-3xl">
                     {/* Title */}
                     <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight">
                         {currentMovie.title}
                     </h1>
 
+                    <div className="text-purple-300 ">
+                        {currentMovie.overview}
+                    </div>
+
                     {/* Meta info */}
                     <div className="flex items-center gap-4 text-purple-300 mb-8 text-lg">
-                        <span>{currentMovie.year}</span>
-                        <span className="px-3 py-1 bg-purple-600/30 rounded-full text-sm">
-                            {currentMovie.genre}
+                        <span>
+                            {currentMovie.release_date?.split("-")?.[0]}
                         </span>
-                        <span>{currentMovie.seasons}</span>
+                        {/* <span className="px-3 py-1 bg-purple-600/30 rounded-full text-sm">
+                            {currentMovie.overview}
+                        </span> */}
                     </div>
 
                     {/* Buttons — exactly as you had */}
                     <div className="flex items-center gap-6">
-                        <button className="flex items-center gap-3 bg-purple-600 hover:bg-purple-500 transition-all px-10 py-5 rounded-full text-lg font-semibold shadow-2xl transform hover:scale-105">
-                            <Play size={28} variant="Bold" />
-                            Watch now
+                        <button
+                            className="flex items-center gap-3 bg-purple-600 hover:bg-purple-500 transition-all px-10 py-5 rounded-full text-lg font-semibold shadow-2xl transform hover:scale-105"
+                            onClick={() =>
+                                router.push(`/movies/${currentMovie?.id}`)
+                            }
+                        >
+                            View Details
                         </button>
 
-                        <button
+                        {/* <button
                             onClick={() => setIsFavorite(!isFavorite)}
                             className={`p-4 rounded-full border-2 transition-all transform hover:scale-110 ${
                                 isFavorite
@@ -178,7 +149,7 @@ export default function HeroSection() {
                                         : "text-white"
                                 }
                             />
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </div>
