@@ -8,7 +8,7 @@ const MovieDetailSkeleton = () => {
                 <div className="absolute inset-0 bg-linear-to-t from-gray-950 to-transparent" />
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 lg:pt-48 flex flex-col lg:flex-row gap-12">
-                    <div className="w-96 h-96 lg:h-[600px] bg-gray-700 rounded-2xl animate-pulse" />
+                    <div className="w-96 h-96 lg:h-[400px] bg-gray-700 rounded-2xl animate-pulse" />
 
                     <div className="space-y-6 max-w-3xl">
                         <div className="h-20 bg-gray-700 rounded-2xl w-3/4 animate-pulse" />
